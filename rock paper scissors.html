@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="choices">
+            <button id="rock" class="choice">Rock</button>
+            <button id="paper" class="choice">Paper</button>
+            <button id="scissors" class="choice">Scissors</button>
+        </div>
+        <div id="result"></div>
+        <div id="user-choice"></div>
+        <div id="computer-choice"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000005;
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.choices {
+    margin-bottom: 20px;
+}
+
+.choice {
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #eee;
+    transition: background-color 0.3s;
+}
+
+.choice:hover {
+    background-color: #bcee06;
+}
+
+#result {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#user-choice, #computer-choice {
+    font-size: 18px;
+    margin-top: 10px;
+}
+</style>
+
+<script>
+
+function getComputerChoice() {
+    const choices = ['rock', 'paper', 'scissors'];
+    const randomChoice = choices[Math.floor(Math.random() * choices.length)];
+    return randomChoice;
+}
+
+function determineWinner(userChoice, computerChoice) {
+    if (userChoice === computerChoice) {
+        return "It's a tie!";
+    } else if (
+        (userChoice === 'rock' && computerChoice === 'scissors') ||
+        (userChoice === 'scissors' && computerChoice === 'paper') ||
+        (userChoice === 'paper' && computerChoice === 'rock')
+    ) {
+        return "You win!";
+    } else {
+        return "Computer wins!";
+    }
+}
+
+function playGame(userChoice) {
+    const computerChoice = getComputerChoice();
+    const result = determineWinner(userChoice, computerChoice);
+    
+    document.getElementById("user-choice").textContent = `You chose: ${userChoice}`;
+    document.getElementById("computer-choice").textContent = `Computer chose: ${computerChoice}`;
+    document.getElementById("result").textContent = result;
+}
+
+document.getElementById("rock").addEventListener("click", function() {
+    playGame('rock');
+});
+
+document.getElementById("paper").addEventListener("click", function() {
+    playGame('paper');
+});
+
+document.getElementById("scissors").addEventListener("click", function() {
+    playGame('scissors');
+});
+</script>
